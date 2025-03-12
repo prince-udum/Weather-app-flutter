@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_application/application/bloc/weather_bloc.dart';
+import 'package:weather_application/domain/model/weather_repository.dart';
 import 'package:weather_application/presentation/home_page.dart';
 
 void main() {
@@ -22,7 +25,10 @@ class MyApp extends StatelessWidget {
         textTheme: TextTheme(bodyMedium: TextStyle(color: Color(0xFFFFFFFF))),
       ),
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: BlocProvider(
+        create: (context) => WeatherBloc(WeatherRepository),
+        child: const HomePage(),
+      ),
     );
   }
 }

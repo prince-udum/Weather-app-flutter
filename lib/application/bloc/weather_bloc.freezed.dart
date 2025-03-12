@@ -238,10 +238,10 @@ String toString() {
 
 
 class Success implements WeatherState {
-  const Success({required this.cityName});
+  const Success(this.weather);
   
 
- final  String cityName;
+ final  Weather weather;
 
 /// Create a copy of WeatherState
 /// with the given fields replaced by the non-null parameter values.
@@ -253,16 +253,16 @@ $SuccessCopyWith<Success> get copyWith => _$SuccessCopyWithImpl<Success>(this, _
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Success&&(identical(other.cityName, cityName) || other.cityName == cityName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Success&&(identical(other.weather, weather) || other.weather == weather));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,cityName);
+int get hashCode => Object.hash(runtimeType,weather);
 
 @override
 String toString() {
-  return 'WeatherState.success(cityName: $cityName)';
+  return 'WeatherState.success(weather: $weather)';
 }
 
 
@@ -273,7 +273,7 @@ abstract mixin class $SuccessCopyWith<$Res> implements $WeatherStateCopyWith<$Re
   factory $SuccessCopyWith(Success value, $Res Function(Success) _then) = _$SuccessCopyWithImpl;
 @useResult
 $Res call({
- String cityName
+ Weather weather
 });
 
 
@@ -290,10 +290,10 @@ class _$SuccessCopyWithImpl<$Res>
 
 /// Create a copy of WeatherState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? cityName = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? weather = null,}) {
   return _then(Success(
-cityName: null == cityName ? _self.cityName : cityName // ignore: cast_nullable_to_non_nullable
-as String,
+null == weather ? _self.weather : weather // ignore: cast_nullable_to_non_nullable
+as Weather,
   ));
 }
 
@@ -304,32 +304,66 @@ as String,
 
 
 class Failure implements WeatherState {
-  const Failure();
+  const Failure(this.message);
   
 
+ final  String message;
 
-
+/// Create a copy of WeatherState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$FailureCopyWith<Failure> get copyWith => _$FailureCopyWithImpl<Failure>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Failure);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Failure&&(identical(other.message, message) || other.message == message));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,message);
 
 @override
 String toString() {
-  return 'WeatherState.failure()';
+  return 'WeatherState.failure(message: $message)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class $FailureCopyWith<$Res> implements $WeatherStateCopyWith<$Res> {
+  factory $FailureCopyWith(Failure value, $Res Function(Failure) _then) = _$FailureCopyWithImpl;
+@useResult
+$Res call({
+ String message
+});
 
 
+
+
+}
+/// @nodoc
+class _$FailureCopyWithImpl<$Res>
+    implements $FailureCopyWith<$Res> {
+  _$FailureCopyWithImpl(this._self, this._then);
+
+  final Failure _self;
+  final $Res Function(Failure) _then;
+
+/// Create a copy of WeatherState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(Failure(
+null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
 
 // dart format on
