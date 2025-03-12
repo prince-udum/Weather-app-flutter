@@ -3,7 +3,7 @@ part of 'weather_bloc.dart';
 @freezed
 class WeatherState with _$WeatherState {
   const factory WeatherState.initial() = _Initial;
-  const factory WeatherState.loading() = Loading;
-  const factory WeatherState.success(Weather weather) = Success;
-  const factory WeatherState.failure(String message) = Failure;
+  const factory WeatherState.loading() = _Loading;
+  const factory WeatherState.success(WeatherModel weather) = _Success;
+  const factory WeatherState.failure(String message) = _Failure;
 }

@@ -4,5 +4,5 @@ part of 'weather_bloc.dart';
 class WeatherEvent with _$WeatherEvent {
   const factory WeatherEvent.started() = _Started;
 
-  const factory WeatherEvent.fetchWeather(String city) = FetchWeather;
+  const factory WeatherEvent.fetchWeather({String? city}) = FetchWeather;
 }

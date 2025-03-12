@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_application/application/bloc/weather_bloc.dart';
+import 'package:weather_application/application/bloc_observer/bloc_observer.dart';
 import 'package:weather_application/domain/model/weather_repository.dart';
 import 'package:weather_application/presentation/home_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = AppBlocObserver();
   runApp(const MyApp());
 }
 
@@ -25,8 +28,12 @@ class MyApp extends StatelessWidget {
         textTheme: TextTheme(bodyMedium: TextStyle(color: Color(0xFFFFFFFF))),
       ),
       debugShowCheckedModeBanner: false,
-      home: BlocProvider(
-        create: (context) => WeatherBloc(WeatherRepository),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider<WeatherBloc>(
+            create: (context) => WeatherBloc(FetchWeatherRepository()),
+          ),
+        ],
         child: const HomePage(),
       ),
     );

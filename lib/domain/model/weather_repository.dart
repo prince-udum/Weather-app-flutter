@@ -1,23 +1,29 @@
 // import 'package:flutter/widgets.dart';
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
-import 'package:weather_application/domain/model/weather.dart';
+import 'package:weather_application/domain/model/weather_model.dart';
+import 'package:dartz/dartz.dart';
+import 'package:weather_application/infrastructure/dto/weather_dto.dart';
 
 abstract class WeatherRepository {
-  Future<Weather> fetchWeather(String cityName);
+  Future<WeatherModel> fetchWeather({String? cityName});
 }
 
 class FetchWeatherRepository implements WeatherRepository {
   @override
-  Future<Weather> fetchWeather(String cityName) async {
+  Future<WeatherModel> fetchWeather({String? cityName}) async {
     try {
-      var url = Uri.https(
-        'freetestapi.com',
-        '/api/v1/weathers?search=$cityName',
-      );
+      var url = Uri.parse("https://freetestapi.com/api/v1/weathers");
 
       var response = await http.get(url);
-      print(response);
-      return Weather(cityName: cityName, result: response.body);
+
+      final json = jsonDecode(response.body);
+      print("jsfbsk: $json");
+      if (response.statusCode == 200) {
+        return WeatherDTO.fromJson(json).toDomain();
+      }
+      return WeatherModel.empty();
     } on NetworkEror catch (_) {
       throw NetworkEror();
     }
