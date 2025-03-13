@@ -7,16 +7,12 @@ part 'weather_dto.g.dart';
 @freezed
 abstract class WeatherDTO with _$WeatherDTO {
   const WeatherDTO._();
-  factory WeatherDTO({required String cityName, required String result}) =
-      _WeatherDTO;
+  factory WeatherDTO(List<IWeatherModel>? weather) = _WeatherDTO;
 
-  factory WeatherDTO.empty() => WeatherDTO(cityName: "", result: "");
+  factory WeatherDTO.empty() => WeatherDTO(weather: []);
 
   factory WeatherDTO.fromDomain(WeatherModel weather) {
-    return WeatherDTO(
-      cityName: weather.cityName ?? "",
-      result: weather.result ?? "",
-    );
+    return WeatherDTO(weather);
   }
 
   factory WeatherDTO.fromJson(Map<String, dynamic> json) =>
@@ -25,6 +21,6 @@ abstract class WeatherDTO with _$WeatherDTO {
 
 extension WeatherDTOX on WeatherDTO {
   WeatherModel toDomain() {
-    return WeatherModel(cityName: cityName, result: result);
+    return WeatherModel(weather: weather);
   }
 }

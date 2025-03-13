@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$WeatherDTO {
 
- String get cityName; String get result;
+ List<IWeatherModel>? get weather;
 /// Create a copy of WeatherDTO
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $WeatherDTOCopyWith<WeatherDTO> get copyWith => _$WeatherDTOCopyWithImpl<Weather
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WeatherDTO&&(identical(other.cityName, cityName) || other.cityName == cityName)&&(identical(other.result, result) || other.result == result));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WeatherDTO&&const DeepCollectionEquality().equals(other.weather, weather));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,cityName,result);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(weather));
 
 @override
 String toString() {
-  return 'WeatherDTO(cityName: $cityName, result: $result)';
+  return 'WeatherDTO(weather: $weather)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $WeatherDTOCopyWith<$Res>  {
   factory $WeatherDTOCopyWith(WeatherDTO value, $Res Function(WeatherDTO) _then) = _$WeatherDTOCopyWithImpl;
 @useResult
 $Res call({
- String cityName, String result
+ List<IWeatherModel>? weather
 });
 
 
@@ -66,11 +66,10 @@ class _$WeatherDTOCopyWithImpl<$Res>
 
 /// Create a copy of WeatherDTO
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? cityName = null,Object? result = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? weather = freezed,}) {
   return _then(_self.copyWith(
-cityName: null == cityName ? _self.cityName : cityName // ignore: cast_nullable_to_non_nullable
-as String,result: null == result ? _self.result : result // ignore: cast_nullable_to_non_nullable
-as String,
+weather: freezed == weather ? _self.weather : weather // ignore: cast_nullable_to_non_nullable
+as List<IWeatherModel>?,
   ));
 }
 
@@ -81,11 +80,18 @@ as String,
 @JsonSerializable()
 
 class _WeatherDTO extends WeatherDTO {
-   _WeatherDTO({required this.cityName, required this.result}): super._();
+   _WeatherDTO(final  List<IWeatherModel>? weather): _weather = weather,super._();
   factory _WeatherDTO.fromJson(Map<String, dynamic> json) => _$WeatherDTOFromJson(json);
 
-@override final  String cityName;
-@override final  String result;
+ final  List<IWeatherModel>? _weather;
+@override List<IWeatherModel>? get weather {
+  final value = _weather;
+  if (value == null) return null;
+  if (_weather is EqualUnmodifiableListView) return _weather;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
 
 /// Create a copy of WeatherDTO
 /// with the given fields replaced by the non-null parameter values.
@@ -100,16 +106,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WeatherDTO&&(identical(other.cityName, cityName) || other.cityName == cityName)&&(identical(other.result, result) || other.result == result));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WeatherDTO&&const DeepCollectionEquality().equals(other._weather, _weather));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,cityName,result);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_weather));
 
 @override
 String toString() {
-  return 'WeatherDTO(cityName: $cityName, result: $result)';
+  return 'WeatherDTO(weather: $weather)';
 }
 
 
@@ -120,7 +126,7 @@ abstract mixin class _$WeatherDTOCopyWith<$Res> implements $WeatherDTOCopyWith<$
   factory _$WeatherDTOCopyWith(_WeatherDTO value, $Res Function(_WeatherDTO) _then) = __$WeatherDTOCopyWithImpl;
 @override @useResult
 $Res call({
- String cityName, String result
+ List<IWeatherModel>? weather
 });
 
 
@@ -137,11 +143,10 @@ class __$WeatherDTOCopyWithImpl<$Res>
 
 /// Create a copy of WeatherDTO
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? cityName = null,Object? result = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? weather = freezed,}) {
   return _then(_WeatherDTO(
-cityName: null == cityName ? _self.cityName : cityName // ignore: cast_nullable_to_non_nullable
-as String,result: null == result ? _self.result : result // ignore: cast_nullable_to_non_nullable
-as String,
+freezed == weather ? _self._weather : weather // ignore: cast_nullable_to_non_nullable
+as List<IWeatherModel>?,
   ));
 }
 

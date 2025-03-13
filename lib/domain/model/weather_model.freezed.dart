@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$WeatherModel {
 
- String? get cityName; String? get result;
+ List<IWeatherModel>? get weather;
 /// Create a copy of WeatherModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $WeatherModelCopyWith<WeatherModel> get copyWith => _$WeatherModelCopyWithImpl<W
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WeatherModel&&(identical(other.cityName, cityName) || other.cityName == cityName)&&(identical(other.result, result) || other.result == result));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WeatherModel&&const DeepCollectionEquality().equals(other.weather, weather));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,cityName,result);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(weather));
 
 @override
 String toString() {
-  return 'WeatherModel(cityName: $cityName, result: $result)';
+  return 'WeatherModel(weather: $weather)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $WeatherModelCopyWith<$Res>  {
   factory $WeatherModelCopyWith(WeatherModel value, $Res Function(WeatherModel) _then) = _$WeatherModelCopyWithImpl;
 @useResult
 $Res call({
- String? cityName, String? result
+ List<IWeatherModel>? weather
 });
 
 
@@ -63,11 +63,10 @@ class _$WeatherModelCopyWithImpl<$Res>
 
 /// Create a copy of WeatherModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? cityName = freezed,Object? result = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? weather = freezed,}) {
   return _then(_self.copyWith(
-cityName: freezed == cityName ? _self.cityName : cityName // ignore: cast_nullable_to_non_nullable
-as String?,result: freezed == result ? _self.result : result // ignore: cast_nullable_to_non_nullable
-as String?,
+weather: freezed == weather ? _self.weather : weather // ignore: cast_nullable_to_non_nullable
+as List<IWeatherModel>?,
   ));
 }
 
@@ -78,11 +77,18 @@ as String?,
 
 
 class _WeatherModel implements WeatherModel {
-  const _WeatherModel({this.cityName, this.result});
+  const _WeatherModel({final  List<IWeatherModel>? weather}): _weather = weather;
   
 
-@override final  String? cityName;
-@override final  String? result;
+ final  List<IWeatherModel>? _weather;
+@override List<IWeatherModel>? get weather {
+  final value = _weather;
+  if (value == null) return null;
+  if (_weather is EqualUnmodifiableListView) return _weather;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
 
 /// Create a copy of WeatherModel
 /// with the given fields replaced by the non-null parameter values.
@@ -94,16 +100,16 @@ _$WeatherModelCopyWith<_WeatherModel> get copyWith => __$WeatherModelCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WeatherModel&&(identical(other.cityName, cityName) || other.cityName == cityName)&&(identical(other.result, result) || other.result == result));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WeatherModel&&const DeepCollectionEquality().equals(other._weather, _weather));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,cityName,result);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_weather));
 
 @override
 String toString() {
-  return 'WeatherModel(cityName: $cityName, result: $result)';
+  return 'WeatherModel(weather: $weather)';
 }
 
 
@@ -114,7 +120,7 @@ abstract mixin class _$WeatherModelCopyWith<$Res> implements $WeatherModelCopyWi
   factory _$WeatherModelCopyWith(_WeatherModel value, $Res Function(_WeatherModel) _then) = __$WeatherModelCopyWithImpl;
 @override @useResult
 $Res call({
- String? cityName, String? result
+ List<IWeatherModel>? weather
 });
 
 
@@ -131,11 +137,10 @@ class __$WeatherModelCopyWithImpl<$Res>
 
 /// Create a copy of WeatherModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? cityName = freezed,Object? result = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? weather = freezed,}) {
   return _then(_WeatherModel(
-cityName: freezed == cityName ? _self.cityName : cityName // ignore: cast_nullable_to_non_nullable
-as String?,result: freezed == result ? _self.result : result // ignore: cast_nullable_to_non_nullable
-as String?,
+weather: freezed == weather ? _self._weather : weather // ignore: cast_nullable_to_non_nullable
+as List<IWeatherModel>?,
   ));
 }
 
