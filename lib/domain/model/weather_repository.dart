@@ -2,30 +2,45 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:weather_application/domain/model/weather_model.dart';
-import 'package:dartz/dartz.dart';
-import 'package:weather_application/infrastructure/dto/weather_dto.dart';
+import 'package:injectable/injectable.dart';
+import 'package:weather_application/domain/weather_forcast_model/weather_forcast_model.dart';
+import 'package:weather_application/infrastructure/dto/weather_forcast_model_dto/weather_forcast_model_dto.dart';
 
 abstract class WeatherRepository {
-  Future<WeatherModel> fetchWeather({String? cityName});
+  Future<List<WeatherForcastModel>> fetchWeather({String? cityName});
 }
 
+@LazySingleton(as: WeatherRepository)
 class FetchWeatherRepository implements WeatherRepository {
   @override
-  Future<WeatherModel> fetchWeather({String? cityName}) async {
+  Future<List<WeatherForcastModel>> fetchWeather({String? cityName}) async {
     try {
-      var url = Uri.parse("https://freetestapi.com/api/v1/weathers");
+      var url = Uri.parse(
+        "https://freetestapi.com/api/v1/weathers",
+      ).replace(queryParameters: {"search": cityName});
+      ;
 
       var response = await http.get(url);
 
-      final json = jsonDecode(response.body);
-      print("jsfbsk: $json");
       if (response.statusCode == 200) {
-        return WeatherDTO.fromJson(json).toDomain();
+        var json = jsonDecode(response.body);
+        var result = json.map(
+          (e) => WeatherForcastModelDTO.fromJson(e).toDomain(),
+        );
+
+        List<WeatherForcastModel> weatherList = [];
+
+        for (var item in result) {
+          weatherList.add(item);
+        }
+
+        print("result $weatherList");
+
+        return weatherList;
       }
-      return WeatherModel.empty();
+      return [];
     } on NetworkEror catch (_) {
-      throw NetworkEror();
+      throw Exception("Something went wrong");
     }
   }
 }
