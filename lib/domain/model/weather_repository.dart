@@ -7,18 +7,17 @@ import 'package:weather_application/domain/weather_forcast_model/weather_forcast
 import 'package:weather_application/infrastructure/dto/weather_forcast_model_dto/weather_forcast_model_dto.dart';
 
 abstract class WeatherRepository {
-  Future<List<WeatherForcastModel>> fetchWeather({String? cityName});
+  Future<List<WeatherForcastModel>> fetchWeather({String? city});
 }
 
 @LazySingleton(as: WeatherRepository)
 class FetchWeatherRepository implements WeatherRepository {
   @override
-  Future<List<WeatherForcastModel>> fetchWeather({String? cityName}) async {
+  Future<List<WeatherForcastModel>> fetchWeather({String? city}) async {
     try {
       var url = Uri.parse(
         "https://freetestapi.com/api/v1/weathers",
-      ).replace(queryParameters: {"search": cityName});
-      ;
+      ).replace(queryParameters: {"search": city});
 
       var response = await http.get(url);
 
